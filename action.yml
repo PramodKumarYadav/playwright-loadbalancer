@@ -1,4 +1,4 @@
-name: 'Get dynamic playwright matrix'
+name: 'Playwright dynamic GitHub Matrix based on changed files'
 author: 'Pramod Yadav'
 description: 'To get dynamic playwright matrix based on changed files in a PR'
 # https://docs.github.com/en/actions/sharing-automations/creating-actions/metadata-syntax-for-github-actions#branding
