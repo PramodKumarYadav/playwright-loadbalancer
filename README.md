@@ -5,11 +5,15 @@ A GitHub action to provide a dynamic matrix based on the amount of test files ch
 
 Playwright provides an option to run tests on multiple runners using its sharding option as shown [here](https://playwright.dev/docs/test-sharding#github-actions-example). It also provides an option to run only tests that are changed in a pull request as shown [here](https://playwright.dev/docs/release-notes#--only-changed-cli-option). 
 
-This creates an interesting use case where we may not be using our GitHub runners optimally when adding/updating test cases and running them using `npx playwright test --only-changed=origin/main` option. 
+Lets take an example to under a interesting use case it creates. Imagine you have 60 test files and you use 6 github runners to run the files on a sharded manner. You have hardcoded this matrix as `shardIndex: [1, 2, 3, 4, 5, 6]`, as shown in the example from Playwright above. 
 
-Lets look at this use case with an example. Lets assume that we have 60 test files and we need 6 maximum runners to finish all our tests within 5 minutes. However, for our pull requests, we use this command `npx playwright test --only-changed=origin/main` to run only changed tests. Imagine a situation where we only have one test file touched, with just a few test cases and with 'fullyParallel: false", with the setup shown in playwright example, we would still end up spinning 6 runners. Essentially wasting resources setting up all the dependent steps only to run tests in one runner and no tests in other runners.
+Now imagine a tester fixes a flaky test case in a file or adds a few test cases in a test file and push the changes to create a micro PR. If your pull request workflow use this command `npx playwright test --only-changed=origin/main` to run only changed test cases, it would still create 6 runners, even though it may only need one to run those one or two test cases. If this happens frequently, it would result in wasted billable GitHub runner minutes over a period of time for no value in return. 
 
-It would be nice if we can calculate the ratio of changed files vs total files and based on that ratio provide a dynamic matrix that can be used to spin up runners. This action, does just that!
+Wouldn't it be nice if based on the ratio of files touched to the total files, we could generate a dynamic GitHub matrix on run time? 
+
+This is exactly the problem this action strives to solve. 
+
+> I aim to create another GitHub action for other use cases such as running tests on PUSH or on a schedule. Where you may not have any changed files to decide the number of runners but use a "test case" count to arrive at a similar matrix. To be published soon :).
 
 ## Inputs
 
