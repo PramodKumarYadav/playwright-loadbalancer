@@ -1,6 +1,6 @@
 name: 'Playwright load balancer'
 author: 'Pramod Yadav'
-description: 'To get dynamic playwright matrix based on changed files in a Pull Request'
+description: 'To get dynamic playwright matrix based on the load of changed files in a Pull Request'
 # https://docs.github.com/en/actions/sharing-automations/creating-actions/metadata-syntax-for-github-actions#branding
 branding:
   icon: 'git-pull-request'
