@@ -175,13 +175,19 @@ jobs:
 
 ```
 
-## Tests
+## Boundray value Tests 
 
-### Test action when there are no test files touched
-![zero-files-touched](docs/zero-modified-test-files.png)
+### Test result when no test files are touched
+![zero-files-touched](docs/0-zero-modified-test-files.png)
 
-### Test action when there is one file touched out of 3 total test files
+### Test result when one-third files are touched
+![one-file-touched](docs/1-one-third-files-modified.png)
 
+### Test result when two -third files are touched
+![two-files-touched](docs/2-two-third-files-modified.png)
+
+### Test result when all files are touched
+![all-files-touched](docs/3-all-files-modified.png)
 
 ## Reference
 
