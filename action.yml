@@ -36,11 +36,27 @@ runs:
         id: calculate-total-shards-to-use
         run: |
           MAX_RUNNER_COUNT=${{ inputs.max-runners }}
+          echo "MAX_RUNNER_COUNT: $MAX_RUNNER_COUNT"
+
           MODIFIED_TEST_FILES=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD | grep -E "\.spec\.ts$|\.test\.ts$" | wc -l)
+          echo "MODIFIED_TEST_FILES: $MODIFIED_TEST_FILES"    
+
           TOTAL_TEST_FILE_COUNT=$(git ls-files | grep -E "\.spec\.ts$|\.test\.ts$" | wc -l)
+          echo "TOTAL_TEST_FILE_COUNT: $TOTAL_TEST_FILE_COUNT"    
+          # Ensure TOTAL_TEST_FILE_COUNT is not zero (sanity check)
+          if [ "$TOTAL_TEST_FILE_COUNT" -eq 0 ]; then
+            echo "Error: No test files found in the repository."
+            exit 1
+          fi
+
           RATIO=$(awk "BEGIN {print $MODIFIED_TEST_FILES / $TOTAL_TEST_FILE_COUNT}")
+          echo "RATIO: $RATIO"    
+
           TOTAL_SHARDS=$(awk "BEGIN {print int($RATIO * $MAX_RUNNER_COUNT + 0.999)}")
-          if [ $TOTAL_SHARDS -eq 0 ]; then
+          echo "TOTAL_SHARDS: $TOTAL_SHARDS"    
+
+          # If there are no modified files, set TOTAL_SHARDS to 1
+          if [ "$MODIFIED_TEST_FILES" -eq 0 ]; then
             TOTAL_SHARDS=1
           fi
           echo "TOTAL_SHARDS: $TOTAL_SHARDS"
