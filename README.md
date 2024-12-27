@@ -175,6 +175,14 @@ jobs:
 
 ```
 
+## Tests
+
+### Test action when there are no test files touched
+![zero-files-touched](docs/zero-modified-test-files.png)
+
+### Test action when there is one file touched out of 3 total test files
+
+
 ## Reference
 
 To create and push new tags:
