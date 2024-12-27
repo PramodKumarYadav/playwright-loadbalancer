@@ -43,7 +43,7 @@ runs:
             exit 1
           fi
 
-          MODIFIED_TEST_FILES=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD | grep -E "\.spec\.ts$|\.test\.ts$" | wc -l || echo 0)
+          MODIFIED_TEST_FILES=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD | grep -E "\.spec\.ts$|\.test\.ts$" | wc -l)
           MODIFIED_TEST_FILES=$(echo "$MODIFIED_TEST_FILES" | tr -d '[:space:]') # Trim spaces or newlines
           echo "MODIFIED_TEST_FILES: $MODIFIED_TEST_FILES"    
 
