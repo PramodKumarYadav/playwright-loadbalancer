@@ -40,6 +40,9 @@ runs:
           TOTAL_TEST_FILE_COUNT=$(git ls-files | grep -E "\.spec\.ts$|\.test\.ts$" | wc -l)
           RATIO=$(awk "BEGIN {print $MODIFIED_TEST_FILES / $TOTAL_TEST_FILE_COUNT}")
           TOTAL_SHARDS=$(awk "BEGIN {print int($RATIO * $MAX_RUNNER_COUNT + 0.999)}")
+          if [ $TOTAL_SHARDS -eq 0 ]; then
+            TOTAL_SHARDS=1
+          fi
           echo "TOTAL_SHARDS: $TOTAL_SHARDS"
           echo "total_shards=$TOTAL_SHARDS" >> $GITHUB_OUTPUT
         shell: bash
