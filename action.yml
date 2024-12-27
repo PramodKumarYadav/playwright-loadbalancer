@@ -43,7 +43,7 @@ runs:
             exit 1
           fi
 
-          MODIFIED_TEST_FILES=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD | grep -E "\.spec\.ts$|\.test\.ts$" | (cat || echo "") | wc -l)
+          MODIFIED_TEST_FILES=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD | grep -E "\.spec\.ts$|\.test\.ts$" | (cat || echo " ") | wc -l)
           echo "MODIFIED_TEST_FILES: $MODIFIED_TEST_FILES"    
 
           TOTAL_TEST_FILE_COUNT=$(git ls-files | grep -E "\.spec\.ts$|\.test\.ts$" | wc -l)
