@@ -43,14 +43,8 @@ runs:
             exit 1
           fi
 
-          # MODIFIED_TEST_FILES=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD | grep -E "\.spec\.ts$|\.test\.ts$" | wc -l)
-          # MODIFIED_TEST_FILES=$(echo "$MODIFIED_TEST_FILES" | tr -d '[:space:]') # Trim spaces or newlines
-          # echo "MODIFIED_TEST_FILES: $MODIFIED_TEST_FILES"  
-
           # Capture the raw list of modified test files
           MODIFIED_TEST_FILES_RAW=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD | grep -E "\.spec\.ts$|\.test\.ts$" || true)
-
-          # Count the number of files
           if [ -z "$MODIFIED_TEST_FILES_RAW" ]; then
             MODIFIED_TEST_FILES=0
           else
