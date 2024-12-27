@@ -35,7 +35,7 @@ runs:
       - name: Calculate total shards to use
         id: calculate-total-shards-to-use
         run: |
-          MAX_RUNNER_COUNT=4
+          MAX_RUNNER_COUNT=${{ inputs.max-runners }}
           MODIFIED_TEST_FILES=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD | grep -E "\.spec\.ts$|\.test\.ts$" | wc -l)
           TOTAL_TEST_FILE_COUNT=$(git ls-files | grep -E "\.spec\.ts$|\.test\.ts$" | wc -l)
           RATIO=$(awk "BEGIN {print $MODIFIED_TEST_FILES / $TOTAL_TEST_FILE_COUNT}")
