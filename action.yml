@@ -37,6 +37,11 @@ runs:
         run: |
           MAX_RUNNER_COUNT=${{ inputs.max-runners }}
           echo "MAX_RUNNER_COUNT: $MAX_RUNNER_COUNT"
+          # Ensure MAX_RUNNER_COUNT is not zero (sanity check)
+          if [ "$MAX_RUNNER_COUNT" -le 0 ]; then
+            echo "Error: Max runner count must be a positive number."
+            exit 1
+          fi
 
           MODIFIED_TEST_FILES=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD | grep -E "\.spec\.ts$|\.test\.ts$" | wc -l)
           echo "MODIFIED_TEST_FILES: $MODIFIED_TEST_FILES"    
