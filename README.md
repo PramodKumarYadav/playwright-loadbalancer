@@ -40,43 +40,8 @@ on:
 
 name: Get BrowserStack Result
 jobs:
-  browserstack_result:
-    name: Get BrowserStack Result
-    runs-on: ubuntu-latest
-    outputs:
-      build-id: ${{ steps.get_browserstack_result.outputs.build-id }}
-      quality-gate-result: ${{ steps.get_browserstack_result.outputs.quality-gate-result }}
-    steps:
-    - uses: actions/checkout@v4
+  to-be-added
 
-    - name: Get BrowserStack Result
-      uses: PramodKumarYadav/playwright-loadbalancer@v10
-      id: get_browserstack_result
-      with:
-        project-name: 'your-test-project-name'
-        build-name: 'your-test-build-name'
-        build-tags: 'your-custom-build-tag-name' 
-        browserstack-username: ${{ secrets.BROWSERSTACK_USERNAME }}
-        browserstack-access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-        timeout-in-seconds: 60
-
-    - name: Print BrowserStack Result in same job (and fail if quality gate failed)
-      # Possible quality-gate-result values: 'passed', 'failed', 'Quality Gate Analysis in process. Please try again in a few minutes.
-      run: |
-          echo "Quality Gate Result: ${{ steps.get_browserstack_result.outputs.quality-gate-result }}"
-          if [[ "${{ steps.get_browserstack_result.outputs.quality-gate-result }}" != "passed" ]]; then
-            exit 1
-          fi
-  
-  use_browserstack_result:
-    name: Print BrowserStack Result in another job
-    runs-on: ubuntu-latest
-    needs: browserstack_result
-    steps:
-    - name: Use BrowserStack Result
-      run: |
-        echo "Build ID: ${{ needs.browserstack_result.outputs.build-id }}"
-        echo "Quality Gate Result: ${{ needs.browserstack_result.outputs.quality-gate-result }}"
 ```
 
 ## Reference
