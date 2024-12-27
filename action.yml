@@ -58,13 +58,13 @@ runs:
           echo "RATIO: $RATIO"    
 
           TOTAL_SHARDS=$(awk "BEGIN {print int($RATIO * $MAX_RUNNER_COUNT + 0.999)}")
-          echo "TOTAL_SHARDS: $TOTAL_SHARDS"    
+          echo "TOTAL_SHARDS_AS_CALCULATED: $TOTAL_SHARDS"    
 
           # If there are no modified files, set TOTAL_SHARDS to 1
           if [ "$MODIFIED_TEST_FILES" -eq 0 ]; then
             TOTAL_SHARDS=1
           fi
-          echo "TOTAL_SHARDS: $TOTAL_SHARDS"
+          echo "TOTAL_SHARDS_TO_USE: $TOTAL_SHARDS"
           echo "total_shards=$TOTAL_SHARDS" >> $GITHUB_OUTPUT
         shell: bash
 
