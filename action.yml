@@ -1,4 +1,4 @@
-name: 'Playwright load balancer'
+name: 'Playwright load balancer based on changed files'
 author: 'Pramod Yadav'
 description: 'To get dynamic playwright matrix based on the load of changed files in a Pull Request'
 # https://docs.github.com/en/actions/sharing-automations/creating-actions/metadata-syntax-for-github-actions#branding
